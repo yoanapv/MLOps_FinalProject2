@@ -162,3 +162,7 @@ cython_debug/
 #.idea/
 
 .DS_Store
+
+#Models
+extra_trees_classifier_model_output.pkl
+extra_trees_classifier_pipeline_output.pkl

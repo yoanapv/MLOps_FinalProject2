@@ -25,7 +25,7 @@ We need to determine if each customer is likely to cancel their reservation or n
 
 **Follow the instructions below to do the activity**
 ### Run the existing notebook
-1. Clone the project `https://github.com/yoanapv/MLOps_FinalProject.git` on your local computer.
+1. Clone the project `https://github.com/yoanapv/MLOps_FinalProject2.git` on your local computer.
 2. Open the Terminal
     * Clic on Terminal --> New Terminal
 
@@ -62,5 +62,5 @@ We need to determine if each customer is likely to cancel their reservation or n
     pip install -r MLOps_Modulo1/requirements_3-7
 
 # BASELINE MODEL 
-5. To review the baseline model go to the Baseline folder and check the README_BASELINE file, or click in the next link: https://github.com/yoanapv/MLOps_FinalProject/blob/main/Baseline/README_BASELINE.md
+5. To review the baseline model go to the Baseline folder and check the README_BASELINE file, or click in the next link: https://github.com/yoanapv/MLOps_FinalProject2/blob/main/Baseline/README_BASELINE.md
 

@@ -28,12 +28,12 @@ def test_csv_file_existence():
     Test case to check if the CSV file exists.
     """
     # Provide the path to your CSV file that needs to be tested
-    os.chdir('/Users/norma.perez/Documents/GitHub/MLOps_FinalProject/mlops_finalproject/mlops_finalproject')
+    os.chdir('/Users/norma.perez/Documents/GitHub/MLOps_FinalProject2/mlops_finalproject/mlops_finalproject')
     csv_file_path = "./data/retrieved_data.csv"
     
     DATASETS_DIR = './data/'
     
-    URL = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject/mlops_finalproject/mlops_finalproject/data/Hotel_Reservations.csv'
+    URL = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject2/mlops_finalproject/mlops_finalproject/data/Hotel_Reservations.csv'
     data_retriever = DataRetriever(URL, DATASETS_DIR)
     data_retriever.retrieve_data()
 
@@ -95,7 +95,7 @@ def test_ordering_features():
 
 def test_model_and_pipeline_saved():
 
-    TRAINED_MODEL_DIR = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject/mlops_finalproject/mlops_finalproject/models/'
+    TRAINED_MODEL_DIR = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject2/mlops_finalproject/mlops_finalproject/models/'
     MODEL_SAVE_FILE = 'extra_trees_classifier_model_output.pkl'
     PIPELINE_SAVE_FILE = 'extra_trees_classifier_pipeline_output.pkl'
     # Define the paths to the saved model and pipeline

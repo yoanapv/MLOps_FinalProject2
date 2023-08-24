@@ -21,7 +21,7 @@ async def healthcheck():
 
 @app.post('/predict')
 def predict(hotelreservation_features: HotelReservation):
-    predictor = ModelPredictor("/Users/norma.perez/Documents/GitHub/MLOps_FinalProject/mlops_finalproject/mlops_finalproject/models/extra_trees_classifier_model_output.pkl")
+    predictor = ModelPredictor("/Users/norma.perez/Documents/GitHub/MLOps_FinalProject2/mlops_finalproject/mlops_finalproject/models/extra_trees_classifier_model_output.pkl")
     X = [hotelreservation_features.no_of_week_nights,
         hotelreservation_features.lead_time,
         hotelreservation_features.arrival_month,

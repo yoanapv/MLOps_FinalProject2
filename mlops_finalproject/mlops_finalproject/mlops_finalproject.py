@@ -9,7 +9,7 @@ import os
 from sklearn.metrics import accuracy_score, roc_auc_score
 
 DATASETS_DIR = './data/'
-URL = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject/mlops_finalproject/mlops_finalproject/data/Hotel_Reservations.csv'
+URL = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject2/mlops_finalproject/mlops_finalproject/data/Hotel_Reservations.csv'
 DROP_COLS = ['Booking_ID']
 RETRIEVED_DATA = 'retrieved_data.csv'
 

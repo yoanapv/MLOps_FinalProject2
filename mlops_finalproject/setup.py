@@ -38,7 +38,7 @@ setup(
     packages=find_packages(include=['mlops_finalproject', 'mlops_finalproject.*']),
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/yoanapv/mlops_finalproject',
+    url='https://github.com/yoanapv/mlops_finalproject2',
     version='0.1.0',
     zip_safe=False,
 )

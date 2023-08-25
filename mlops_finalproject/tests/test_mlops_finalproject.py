@@ -2,6 +2,7 @@
 
 """Tests for `mlops_finalproject` package."""
 
+import logging
 import os
 import pytest
 import pandas as pd
@@ -10,6 +11,18 @@ from sklearn.pipeline import Pipeline
 from mlops_finalproject.load.load_data import DataRetriever
 from mlops_finalproject.preprocess.preprocess_data import CategoricalImputer
 from mlops_finalproject.preprocess.preprocess_data import OrderingFeatures
+
+# Configure logging
+logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
+logger.setLevel(logging.INFO) # Configuramos el nivel de logging
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
+
+file_handler = logging.FileHandler('test.log') # Indicamos el nombre del archivo
+
+file_handler.setFormatter(formatter) # Configuramos el formato
+
+logger.addHandler(file_handler) # Agregamos el archivo
 
 def does_csv_file_exist(file_path):
     """
@@ -27,13 +40,14 @@ def test_csv_file_existence():
     """
     Test case to check if the CSV file exists.
     """
-    # Provide the path to your CSV file that needs to be tested
-    os.chdir('/Users/norma.perez/Documents/GitHub/MLOps_FinalProject2/mlops_finalproject/mlops_finalproject')
+    logger.info("Testing CSV file existence...")
+    
+    os.chdir('/Users/norma.perez/Documents/GitHub/MLOps_FinalProject/mlops_finalproject/mlops_finalproject')
     csv_file_path = "./data/retrieved_data.csv"
     
     DATASETS_DIR = './data/'
     
-    URL = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject2/mlops_finalproject/mlops_finalproject/data/Hotel_Reservations.csv'
+    URL = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject/mlops_finalproject/mlops_finalproject/data/Hotel_Reservations.csv'
     data_retriever = DataRetriever(URL, DATASETS_DIR)
     data_retriever.retrieve_data()
 
@@ -42,8 +56,10 @@ def test_csv_file_existence():
 
     # Use Pytest's assert statement to check if the file exists
     assert file_exists == True, f"The CSV file at '{csv_file_path}' does not exist."
+    logger.info("CSV file existence test complete.")
 
 def test_categorical_imputer():
+    logger.info("Testing categorical imputer...")
     # Create a sample DataFrame
     data = pd.DataFrame({
         'type_of_meal_plan': ['Meal Plan 1', None, 'Meal Plan 2', 'Meal Plan 3'],
@@ -71,6 +87,7 @@ def test_categorical_imputer():
     assert 'Missing' in X_transformed['market_segment_type'].values
 
 def test_ordering_features():
+    logger.info("Testing ordering features...")
     # Create a sample DataFrame
     data = pd.DataFrame({
         'Booking_ID': ['INN00001', 'INN00002', 'INN00003', 'INN00004'],
@@ -93,9 +110,10 @@ def test_ordering_features():
     # Check if the transformation was done correctly
     assert list(X_transformed.columns) == ['type_of_meal_plan', 'room_type_reserved', 'market_segment_type']
 
-def test_model_and_pipeline_saved():
 
-    TRAINED_MODEL_DIR = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject2/mlops_finalproject/mlops_finalproject/models/'
+def test_model_and_pipeline_saved():
+    logger.info("Testing model and pipeline saved...")
+    TRAINED_MODEL_DIR = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject/mlops_finalproject/mlops_finalproject/models/'
     MODEL_SAVE_FILE = 'extra_trees_classifier_model_output.pkl'
     PIPELINE_SAVE_FILE = 'extra_trees_classifier_pipeline_output.pkl'
     # Define the paths to the saved model and pipeline
@@ -105,4 +123,3 @@ def test_model_and_pipeline_saved():
     # Check if the model and pipeline files exist
     assert os.path.isfile(model_save_path), f"Model not saved in {model_save_path}"
     assert os.path.isfile(pipeline_save_path), f"Pipeline not saved in {pipeline_save_path}"
-

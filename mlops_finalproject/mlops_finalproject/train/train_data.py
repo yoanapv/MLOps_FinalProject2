@@ -1,3 +1,4 @@
+import logging
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import ExtraTreesClassifier
@@ -10,6 +11,17 @@ from preprocess.preprocess_data import (
     OneHotEncoder,
     FeatureSelector
 )
+
+logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
+logger.setLevel(logging.INFO) # Configuramos el nivel de logging
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
+
+file_handler = logging.FileHandler('train_data.log') # Indicamos el nombre del archivo
+
+file_handler.setFormatter(formatter) # Configuramos el formato
+
+logger.addHandler(file_handler) # Agregamos el archivo
 
 class HotelReservationsDataPipeline:
     """
@@ -26,7 +38,7 @@ class HotelReservationsDataPipeline:
         create_pipeline(): Create and return the Hotel Reservations data processing pipeline.
     """
     
-    def __init__(self, seed_model, numerical_vars, categorical_vars_with_na,
+    def _init_(self, seed_model, numerical_vars, categorical_vars_with_na,
                  numerical_vars_with_na, categorical_vars, selected_features):
         self.SEED_MODEL = seed_model
         self.NUMERICAL_VARS = numerical_vars
@@ -35,7 +47,7 @@ class HotelReservationsDataPipeline:
         self.CATEGORICAL_VARS = categorical_vars
         self.SEED_MODEL = seed_model
         self.SELECTED_FEATURES = selected_features
-        
+        logger.basicConfig(level=logging.INFO)
         
     def create_pipeline(self):
         """
@@ -67,6 +79,8 @@ class HotelReservationsDataPipeline:
         Returns:
         - extra_trees_classifier_model (ExtraTreesClassifier): The fitted Extra Trees Classifier model.
         """
+        logger.info("Fitting Extra Trees Classifier...")
+        
         n_estimators = np.array([100])
         criterion_options = ['entropy', 'gini']
         values_grid = {'n_estimators': n_estimators, 'criterion': criterion_options}
@@ -77,6 +91,8 @@ class HotelReservationsDataPipeline:
         pipeline = self.create_pipeline()
         pipeline.fit(X_train, y_train)
         extra_trees_classifier.fit(pipeline.transform(X_train), y_train)
+        
+        logger.info("Fitting Extra Trees Classifier complete.")
         return extra_trees_classifier
     
     def transform_test_data(self, X_test):
@@ -89,5 +105,10 @@ class HotelReservationsDataPipeline:
         Returns:
         - transformed_data (pandas.DataFrame or numpy.ndarray): The preprocessed test data.
         """
+        logger.info("Transforming test data...")
+        
         pipeline = self.create_pipeline()
-        return pipeline.transform(X_test)
+        transformed_data = pipeline.transform(X_test)
+        
+        logger.info("Test data transformation complete.")
+        return transformed_data

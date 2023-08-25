@@ -3,6 +3,19 @@ import numpy as np
 import re
 import os
 
+import logging
+
+logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
+logger.setLevel(logging.INFO) # Configuramos el nivel de logging
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
+
+file_handler = logging.FileHandler('load_data.log') # Indicamos el nombre del archivo
+
+file_handler.setFormatter(formatter) # Configuramos el formato
+
+logger.addHandler(file_handler) # Agregamos el archivo
+
 class DataRetriever:
     """
     A class for retrieving data from a given URL and processing it for further analysis.
@@ -47,12 +60,13 @@ class DataRetriever:
         # Create directory if it does not exist
         if not os.path.exists(self.DATASETS_DIR):
             os.makedirs(self.DATASETS_DIR)
-            print(f"Directory '{self.DATASETS_DIR}' created successfully.")
+            logger.info(f"Directory '{self.DATASETS_DIR}' created successfully.")
         else:
-            print(f"Directory '{self.DATASETS_DIR}' already exists.")
+            logger.info(f"Directory '{self.DATASETS_DIR}' already exists.")
 
         # Save data to CSV file
         data.to_csv(self.DATASETS_DIR + self.RETRIEVED_DATA, index=False)
+        logger.info(f"Data stored in {self.DATASETS_DIR + self.RETRIEVED_DATA}")
 
         return f'Data stored in {self.DATASETS_DIR + self.RETRIEVED_DATA}'
 

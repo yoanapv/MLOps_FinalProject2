@@ -7,6 +7,20 @@ from sklearn.model_selection import train_test_split
 import joblib
 import os
 from sklearn.metrics import accuracy_score, roc_auc_score
+import logging
+
+
+
+logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
+logger.setLevel(logging.DEBUG) # Configuramos el nivel de logging
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
+
+file_handler = logging.FileHandler('main_fast_api.log') # Indicamos el nombre del archivo
+
+file_handler.setFormatter(formatter) # Configuramos el formato
+
+logger.addHandler(file_handler) # Agregamos el archivo
 
 DATASETS_DIR = './data/'
 URL = '/Users/norma.perez/Documents/GitHub/MLOps_FinalProject2/mlops_finalproject/mlops_finalproject/data/Hotel_Reservations.csv'
@@ -79,18 +93,18 @@ if __name__ == "__main__":
     
     class_pred = extra_trees_classifier_model.predict(X_test)
     proba_pred = extra_trees_classifier_model.predict_proba(X_test)[:,1]
-    print(f'test roc-auc : {roc_auc_score(y_test, proba_pred)}')
-    print(f'test accuracy: {accuracy_score(y_test, class_pred)}')
+    logger.debug(f'test roc-auc : {roc_auc_score(y_test, proba_pred)}')
+    logger.debug(f'test accuracy: {accuracy_score(y_test, class_pred)}')
     
     # # Save the model and pipeline using joblib
     # Create the directory if it doesn't exist
     os.makedirs(TRAINED_MODEL_DIR, exist_ok=True)
     model_save_path = TRAINED_MODEL_DIR + MODEL_SAVE_FILE
-    print(model_save_path)
+    logger.debug(model_save_path)
     pipeline_save_path = TRAINED_MODEL_DIR + PIPELINE_SAVE_FILE
-    print(pipeline_save_path)
+    logger.debug(pipeline_save_path)
     joblib.dump(extra_trees_classifier_model, model_save_path)
     joblib.dump(hotelreservations_data_pipeline, pipeline_save_path)
-    print(f"Model saved in {model_save_path}")
-    print(f"Pipeline saved in {pipeline_save_path}")
+    logger.debug(f"Model saved in {model_save_path}")
+    logger.debug(f"Pipeline saved in {pipeline_save_path}")
     

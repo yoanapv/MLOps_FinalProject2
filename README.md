@@ -154,7 +154,7 @@ Follow the next steps to run the test.
     tests/test_mlops_finalproject.py::test_categorical_imputer PASSED                                                                                              [100%] 
 
     ========================================================================= 1 passed in 5.66s =========================================================================    
-```
+    ```
 #### Test `test_ordering_features` class - `fit` method
 
 The following test validates the [preprocess_data.py](itesm_mlops_project/preprocess/preprocess_data.py) module, with the `OrderingFeatures` class in the `transform` method.
